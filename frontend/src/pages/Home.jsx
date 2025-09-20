@@ -11,8 +11,19 @@ function Home() {
 
     ]
 
+    const handleSearch = () => {
+
+    }
+
     return (
     <div className="home">
+
+        <form onSubmit={handleSearch} className="search-form">
+            <input type="text" 
+            placeholder="Search for movies....."
+             className="search-input"></input>
+             <button type="submit" className="search-button">Search</button>
+        </form>
         <div className="movies-grid">
             {movies.map(movie => (<MovieCard  movie={movie} key={movie.id}/>))}
         </div>
