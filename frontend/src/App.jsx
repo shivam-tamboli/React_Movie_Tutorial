@@ -6,14 +6,19 @@ function App() {
 
   return (
     <>
-   <div>
-    <p>Hello world</p>
-   </div>
-   <div>
-    <p>Hello world</p>
-   </div>
+  <Text />
+   <Text />
+   <Text />
    </>
   )
+}
+
+function Text() {
+  return(
+    <div>
+    <p>Hello world</p>
+   </div>
+  );
 }
 
 export default App
