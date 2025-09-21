@@ -1,16 +1,19 @@
-// src/contexts/MovieContext.jsx
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from "react";
 
+// Create context
 const MovieContext = createContext();
 
+// Custom hook
 export const useMovieContext = () => useContext(MovieContext);
 
+// Provider component
 export const MovieProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  // Load favorites from localStorage (safe, only on client-side)
+  // Load favorites from localStorage safely (client-side only)
   useEffect(() => {
-    if (typeof window !== "undefined") { // ensure code runs only in browser
+    if (typeof window !== "undefined") {
       const storedFavs = localStorage.getItem("favorites");
       if (storedFavs) {
         try {
@@ -45,23 +48,18 @@ export const MovieProvider = ({ children }) => {
   const addToFavorites = (movie) => {
     if (!movie) return;
     setFavorites((prev) => {
-      if (movie.id !== undefined && prev.some((m) => m.id === movie.id)) {
-        return prev; // already in favorites
-      }
+      if (movie.id !== undefined && prev.some((m) => m.id === movie.id)) return prev;
       return [...prev, movie];
     });
   };
 
-  const removeFromFavorites = (movieId) => {
+  const removeFromFavorites = (movieId) =>
     setFavorites((prev) => prev.filter((movie) => movie.id !== movieId));
-  };
 
   const isFavorite = (movieId) => favorites.some((movie) => movie.id === movieId);
 
   return (
-    <MovieContext.Provider
-      value={{ favorites, addToFavorites, removeFromFavorites, isFavorite }}
-    >
+    <MovieContext.Provider value={{ favorites, addToFavorites, removeFromFavorites, isFavorite }}>
       {children}
     </MovieContext.Provider>
   );
